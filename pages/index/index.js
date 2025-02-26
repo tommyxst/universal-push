@@ -12,9 +12,9 @@ Page({
       dueDate: ''
     },
     showPressureButton: false,
-    calculatingPressure: false
+    calculatingPressure: false,
+    minDate: new Date().toISOString().split('T')[0]
   },
-
   onLoad() {
     // 从本地存储获取任务列表
     const storedTasks = wx.getStorageSync('tasks') || [];
@@ -31,7 +31,6 @@ Page({
       })
     })
   },
-
   // 计算剩余天数
   calculateDaysLeft(dueDate) {
     const today = new Date();
@@ -41,7 +40,6 @@ Page({
     const diffTime = due.getTime() - today.getTime();
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   },
-
   // 显示创建面板
   showCreatePanel() {
     this.setData({
@@ -54,7 +52,6 @@ Page({
       }
     })
   },
-
   // 监听标题输入
   onTitleInput(e) {
     const value = e.detail.value.slice(0, 50)
@@ -63,7 +60,6 @@ Page({
       showPressureButton: value.trim() !== '' || this.data.newTask.description.trim() !== ''
     })
   },
-
   // 监听详情输入
   onDescriptionInput(e) {
     const value = e.detail.value.slice(0, 200)
@@ -72,16 +68,21 @@ Page({
       showPressureButton: value.trim() !== '' || this.data.newTask.title.trim() !== ''
     })
   },
-
   // 监听日期选择
   onDateChange(e) {
     this.setData({
       'newTask.dueDate': e.detail.value
     })
   },
-
   // 计算压力值
   async calculatePressure() {
+    if (!this.data.newTask.title.trim()) {
+      wx.showToast({
+        title: '请先输入任务标题',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({ calculatingPressure: true })
     try {
       const { title, description, dueDate } = this.data.newTask
@@ -130,7 +131,6 @@ Page({
       this.setData({ calculatingPressure: false })
     }
   },
-
   // 创建新任务
   createTask() {
     const { title, description, pressure, dueDate } = this.data.newTask
@@ -159,17 +159,29 @@ Page({
     
     this.setData({
       tasks: [...this.data.tasks, newTask],
-      showCreate: false
+      showCreate: false,
+      showPressureButton: false,
+      newTask: {
+        title: '',
+        description: '',
+        pressure: 0,
+        dueDate: ''
+      }
     })
   },
-
   // 隐藏创建面板
   hideCreatePanel() {
     this.setData({
-      showCreate: false
+      showCreate: false,
+      showPressureButton: false,
+      newTask: {
+        title: '',
+        description: '',
+        pressure: 0,
+        dueDate: ''
+      }
     })
   },
-
   // 跳转到任务详情
   goToDetail(e) {
     const taskId = e.currentTarget.dataset.id
@@ -181,7 +193,6 @@ Page({
       })
     }
   },
-
   // 根据压力值获取颜色
   getPressureColor(pressure) {
     if (pressure <= 30) return '#2ed573'

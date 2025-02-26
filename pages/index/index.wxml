@@ -25,7 +25,7 @@
     <view class="input-area">
       <input class="task-input" placeholder="输入任务名称" value="{{newTask.title}}" bindinput="onTitleInput"/>
       <textarea class="task-description" placeholder="输入任务详情（选填）" value="{{newTask.description}}" bindinput="onDescriptionInput"></textarea>
-      <picker mode="date" value="{{newTask.dueDate}}" bindchange="onDateChange">
+      <picker mode="date" value="{{newTask.dueDate}}" start="{{minDate}}" bindchange="onDateChange">
         <view class="date-picker {{newTask.dueDate ? 'has-value' : ''}}">
           {{newTask.dueDate || '选择截止日期（选填）'}}
         </view>
