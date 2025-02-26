@@ -37,7 +37,7 @@
       <block wx:for="{{subtasks}}" wx:key="id">
         <!-- 子任务项 -->
         <view class="subtask-item {{item.completed ? 'completed' : ''}}" bindtap="completeSubtask" data-id="{{item.id}}">
-          <view class="time-capsule">{{item.duration}}分钟</view>
+          <view class="time-capsule">{{item.duration}}天</view>
           <view class="subtask-content">
             <text class="subtask-title">{{item.title}}</text>
             <view class="check-icon" wx:if="{{item.completed}}">✓</view>

@@ -12,6 +12,7 @@
         <view class="task-meta" wx:if="{{item.daysLeft !== undefined}}">
           <text class="days-left {{item.daysLeft > 0 ? 'normal' : item.daysLeft < 0 ? 'overdue' : 'today'}}">{{item.daysLeft > 0 ? '还剩' + item.daysLeft + '天' : item.daysLeft < 0 ? '已超期' + (-item.daysLeft) + '天' : '今天到期'}}</text>
         </view>
+        <view class="complete-badge" wx:if="{{item.completed}}">已完成</view>
       </view>
       <view class="pressure-value">{{item.pressure}}</view>
     </view>
