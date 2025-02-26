@@ -60,7 +60,7 @@ Page({
         url: 'https://ark.cn-beijing.volces.com/api/v3/bots/chat/completions',
         method: 'POST',
         header: {
-          'Authorization': 'Bearer 22d71beb-dfc1-45bb-b500-9e23fe012b7f',
+          'Authorization': 'Bearer {YOUR_API_KEY}',
           'Content-Type': 'application/json'
         },
         data: {
