@@ -1,0 +1,209 @@
+.container {
+  padding: 32rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.task-header {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+}
+
+.pressure-indicator {
+  width: 12rpx;
+  height: 60rpx;
+  border-radius: 8rpx;
+  margin-right: 24rpx;
+}
+
+.task-title {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.decompose-area {
+  display: flex;
+  justify-content: center;
+  padding: 48rpx 0;
+}
+
+.decompose-btn {
+  display: flex;
+  align-items: center;
+  background: #2B2D42;
+  color: #fff;
+  padding: 24rpx 48rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  box-shadow: 0 8rpx 24rpx rgba(43,45,66,0.3);
+  transition: all 0.3s ease;
+}
+
+.decompose-btn.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.shredder-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 16rpx;
+}
+
+.progress-bar {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.progress-track {
+  height: 12rpx;
+  background: #f0f0f0;
+  border-radius: 6rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #2B2D42 0%, #4A4D6A 100%);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.task-header.completed {
+  background: linear-gradient(135deg, #2B2D42 0%, #1A1C2B 100%);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.task-header.completed .task-title {
+  color: #fff;
+}
+
+.complete-badge {
+  background: #2ed573;
+  color: #fff;
+  padding: 8rpx 16rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  margin-left: 16rpx;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.subtask-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  transition: all 0.3s ease;
+}
+
+.subtask-item.completed {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
+.time-capsule {
+  background: #2B2D42;
+  color: #fff;
+  padding: 8rpx 16rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  margin-right: 24rpx;
+}
+
+.subtask-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtask-title {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.check-icon {
+  color: #2ed573;
+  font-size: 40rpx;
+}
+
+.break-node {
+  display: flex;
+  justify-content: center;
+  padding: 24rpx 0;
+}
+
+.cat-paw {
+  position: relative;
+  cursor: pointer;
+}
+
+.paw-icon {
+  width: 64rpx;
+  height: 64rpx;
+  transition: transform 0.3s ease;
+}
+
+.cat-paw:hover .paw-icon {
+  transform: scale(1.1);
+}
+
+.break-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(43,45,66,0.9);
+  color: #fff;
+  padding: 12rpx 24rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  margin-bottom: 12rpx;
+}
+
+.cat-paw:hover .break-tooltip {
+  opacity: 1;
+}

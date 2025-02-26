@@ -1,0 +1,8 @@
+<view class="firework-container" wx:if="{{show}}">
+  <view
+    wx:for="{{particles}}"
+    wx:key="id"
+    class="particle"
+    style="background-color: {{item.color}}; transform: translate(-50%, -50%) rotate({{item.angle}}deg);"
+  />
+</view>

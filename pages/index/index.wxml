@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="task-list">
+    <view class="task-card" wx:for="{{tasks}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="pressure-indicator" style="background: {{item.pressureColor}}"></view>
+      <view class="task-title">{{item.title}}</view>
+      <view class="pressure-value">{{item.pressure}}</view>
+    </view>
+  </view>
+
+  <view class="add-btn" bindtap="showCreatePanel">
+    <text class="plus-icon">+</text>
+  </view>
+
+  <view class="create-panel {{showCreate ? 'show' : ''}}">
+    <view class="input-area">
+      <input class="task-input" placeholder="输入任务名称" value="{{newTask.title}}" bindinput="onTitleInput"/>
+    </view>
+    <view class="feedback-area">
+      <view class="pressure-bar">
+        <view class="pressure-progress" style="width: {{newTask.pressure}}%"></view>
+      </view>
+      <view class="comparison-tag">压力值: {{newTask.pressure}}</view>
+    </view>
+    <view class="button-group">
+      <view class="cancel-btn" bindtap="hideCreatePanel">取消</view>
+      <view class="save-btn" bindtap="createTask">创建</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,54 @@
+<view class="container">
+  <!-- 任务详情区域 -->
+  <view class="task-header {{allCompleted ? 'completed' : ''}}">
+    <view class="task-info">
+      <view class="pressure-indicator" style="background: {{task.pressureColor}}"></view>
+      <text class="task-title">{{task.title}}</text>
+      <view class="complete-badge" wx:if="{{allCompleted}}">已完成</view>
+    </view>
+  </view>
+
+  <!-- 拆解按钮区域 -->
+  <view class="decompose-area" wx:if="{{!subtasks.length}}">
+    <view class="decompose-btn {{loading ? 'loading' : ''}}" bindtap="decomposeTask">
+      <image class="shredder-icon" src="/assets/shredder.png" />
+      <text>{{loading ? '正在用激光分解你的焦虑...' : '拆解任务'}}</text>
+    </view>
+  </view>
+
+  <!-- 子任务列表区域 -->
+  <view class="subtask-area" wx:if="{{subtasks.length}}">
+    <!-- 进度条 -->
+    <view class="progress-bar">
+      <view class="progress-text">完成进度 {{progress.completed}}/{{progress.total}}</view>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{progress.completed / progress.total * 100}}%"></view>
+      </view>
+    </view>
+
+    <!-- 子任务列表 -->
+    <view class="subtask-list">
+      <block wx:for="{{subtasks}}" wx:key="id">
+        <!-- 子任务项 -->
+        <view class="subtask-item {{item.completed ? 'completed' : ''}}" bindtap="completeSubtask" data-id="{{item.id}}">
+          <view class="time-capsule">{{item.duration}}分钟</view>
+          <view class="subtask-content">
+            <text class="subtask-title">{{item.title}}</text>
+            <view class="check-icon" wx:if="{{item.completed}}">✓</view>
+          </view>
+        </view>
+
+        <!-- 每3个任务后添加休息节点 -->
+        <view class="break-node" wx:if="{{(index + 1) % 3 === 0 && index !== subtasks.length - 1}}">
+          <view class="cat-paw" bindtap="startBreak">
+            <image class="paw-icon" src="/assets/cat-paw.png" />
+            <view class="break-tooltip">点击开始3分钟呼吸引导</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 烟花组件 -->
+  <firework show="{{showFirework}}" />
+</view>

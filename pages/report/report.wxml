@@ -1,0 +1,31 @@
+<view class="container">
+  <!-- 大脑背景图 -->
+  <image src="/images/brain-bg.png" class="brain-bg"></image>
+  
+  <!-- 报告内容 -->
+  <view class="report-card">
+    <text class="report-title">神经激活报告书</text>
+    
+    <view class="data-row">
+      <view class="data-item">
+        <text class="data-label">β-内啡肽提升值</text>
+        <text class="data-value">{{reportData.endorphin}}μg</text>
+        <view class="data-bar" style="height: {{reportData.endorphin/2}}rpx; background: linear-gradient(to right, #ff6b6b, #ff4757);"></view>
+      </view>
+      
+      <view class="data-item">
+        <text class="data-label">多巴胺持续时间</text>
+        <text class="data-value">{{reportData.dopamineDuration}}分钟</text>
+        <view class="data-bar" style="height: {{reportData.dopamineDuration*4}}rpx; background: linear-gradient(to right, #2ed573, #7bed9f);"></view>
+      </view>
+    </view>
+    
+    <view class="timestamp">{{reportData.timestamp}}</view>
+  </view>
+
+  <!-- 分享按钮 -->
+  <button class="share-btn" open-type="share">
+    <image src="/images/share-icon.png" class="share-icon"></image>
+    <text>分享成就</text>
+  </button>
+</view>

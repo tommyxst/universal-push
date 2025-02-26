@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/task-detail/task-detail"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#2B2D42",
+    "navigationBarTitleText": "万物推进器",
+    "navigationBarTextStyle": "white"
+  },
+  "useExtendedLib": {
+    "weui": true
+  },
+  "style": "v2"
+}

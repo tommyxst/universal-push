@@ -1,0 +1,89 @@
+.container {
+  height: 100vh;
+  background: linear-gradient(135deg, #2B2D42 0%, #1A1C2B 100%);
+  padding: 40rpx;
+  position: relative;
+  color: white;
+}
+
+.brain-bg {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  opacity: 0.1;
+  bottom: 0;
+  left: 0;
+}
+
+.report-card {
+  background: rgba(255,255,255,0.1);
+  border-radius: 32rpx;
+  padding: 48rpx;
+  backdrop-filter: blur(20rpx);
+}
+
+.report-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 64rpx;
+  letter-spacing: 4rpx;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 64rpx;
+}
+
+.data-item {
+  width: 48%;
+  text-align: center;
+}
+
+.data-label {
+  font-size: 28rpx;
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.data-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 32rpx;
+}
+
+.data-bar {
+  width: 100%;
+  border-radius: 16rpx;
+  transition: height 0.8s ease;
+}
+
+.timestamp {
+  text-align: center;
+  font-size: 24rpx;
+  opacity: 0.6;
+  margin-top: 48rpx;
+}
+
+.share-btn {
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  border-radius: 48rpx;
+  padding: 24rpx 48rpx;
+  display: flex;
+  align-items: center;
+}
+
+.share-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+}
