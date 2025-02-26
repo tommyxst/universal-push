@@ -22,7 +22,7 @@
     "ignoreUploadUnusedFiles": true
   },
   "libVersion": "3.0.2",
-  "appid": "wxa588f5dc08e65bfe",
+  "appid": "wx593af885e24aca74",
   "projectname": "universal-push",
   "condition": {
     "miniprogram": {

@@ -7,18 +7,34 @@ Page({
     showCreate: false,
     newTask: {
       title: '',
-      pressure: 50
+      description: '',
+      pressure: 50,
+      dueDate: ''
     }
   },
 
   onLoad() {
     // 从全局数据中获取任务列表
     this.setData({
-      tasks: app.globalData.taskList.map(task => ({
-        ...task,
-        pressureColor: this.getPressureColor(task.pressure)
-      }))
+      tasks: app.globalData.taskList.map(task => {
+        const daysLeft = task.dueDate ? this.calculateDaysLeft(task.dueDate) : undefined;
+        return {
+          ...task,
+          pressureColor: this.getPressureColor(task.pressure),
+          daysLeft
+        };
+      })
     })
+  },
+
+  // 计算剩余天数
+  calculateDaysLeft(dueDate) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    const diffTime = due.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   },
 
   // 显示创建面板
@@ -27,28 +43,39 @@ Page({
       showCreate: true,
       newTask: {
         title: '',
-        pressure: 50
+        description: '',
+        pressure: 50,
+        dueDate: ''
       }
-    })
-  },
-
-  // 隐藏创建面板
-  hideCreatePanel() {
-    this.setData({
-      showCreate: false
     })
   },
 
   // 监听标题输入
   onTitleInput(e) {
+    const value = e.detail.value.slice(0, 50)
     this.setData({
-      'newTask.title': e.detail.value
+      'newTask.title': value
+    })
+  },
+
+  // 监听详情输入
+  onDescriptionInput(e) {
+    const value = e.detail.value.slice(0, 200)
+    this.setData({
+      'newTask.description': value
+    })
+  },
+
+  // 监听日期选择
+  onDateChange(e) {
+    this.setData({
+      'newTask.dueDate': e.detail.value
     })
   },
 
   // 创建新任务
   createTask() {
-    const { title, pressure } = this.data.newTask
+    const { title, description, pressure, dueDate } = this.data.newTask
     if (!title.trim()) {
       wx.showToast({
         title: '请输入任务名称',
@@ -60,14 +87,24 @@ Page({
     const newTask = {
       id: Date.now().toString(),
       title: title.trim(),
+      description: description.trim(),
       pressure,
-      pressureColor: this.getPressureColor(pressure)
+      dueDate,
+      pressureColor: this.getPressureColor(pressure),
+      daysLeft: dueDate ? this.calculateDaysLeft(dueDate) : undefined
     }
 
     // 更新全局和页面数据
     app.globalData.taskList.push(newTask)
     this.setData({
       tasks: [...this.data.tasks, newTask],
+      showCreate: false
+    })
+  },
+
+  // 隐藏创建面板
+  hideCreatePanel() {
+    this.setData({
       showCreate: false
     })
   },

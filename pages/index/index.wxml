@@ -1,8 +1,18 @@
 <view class="container">
+  <image class="bg-image" src="/assets/cat-background.png" mode="aspectFill"/>
   <view class="task-list">
+    <view class="empty-state" wx:if="{{!tasks.length}}">
+      <text class="empty-state-text">还没有任何任务哦</text>
+      <text class="empty-state-subtext">点击右下角的按钮创建新任务吧</text>
+    </view>
     <view class="task-card" wx:for="{{tasks}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
       <view class="pressure-indicator" style="background: {{item.pressureColor}}"></view>
-      <view class="task-title">{{item.title}}</view>
+      <view class="task-info">
+        <view class="task-title">{{item.title}}</view>
+        <view class="task-meta" wx:if="{{item.daysLeft !== undefined}}">
+          <text class="days-left {{item.daysLeft > 0 ? 'normal' : item.daysLeft < 0 ? 'overdue' : 'today'}}">{{item.daysLeft > 0 ? '还剩' + item.daysLeft + '天' : item.daysLeft < 0 ? '已超期' + (-item.daysLeft) + '天' : '今天到期'}}</text>
+        </view>
+      </view>
       <view class="pressure-value">{{item.pressure}}</view>
     </view>
   </view>
@@ -14,6 +24,12 @@
   <view class="create-panel {{showCreate ? 'show' : ''}}">
     <view class="input-area">
       <input class="task-input" placeholder="输入任务名称" value="{{newTask.title}}" bindinput="onTitleInput"/>
+      <textarea class="task-description" placeholder="输入任务详情（选填）" value="{{newTask.description}}" bindinput="onDescriptionInput"></textarea>
+      <picker mode="date" value="{{newTask.dueDate}}" bindchange="onDateChange">
+        <view class="date-picker {{newTask.dueDate ? 'has-value' : ''}}">
+          {{newTask.dueDate || '选择截止日期（选填）'}}
+        </view>
+      </picker>
     </view>
     <view class="feedback-area">
       <view class="pressure-bar">

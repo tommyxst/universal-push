@@ -30,6 +30,28 @@
   font-weight: 500;
 }
 
+.task-details {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.detail-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.task-date {
+  margin-top: 16rpx;
+}
+
+.date-text {
+  font-size: 26rpx;
+  color: #8c8c8c;
+}
+
 .decompose-area {
   display: flex;
   justify-content: center;

@@ -6,6 +6,12 @@
       <text class="task-title">{{task.title}}</text>
       <view class="complete-badge" wx:if="{{allCompleted}}">已完成</view>
     </view>
+    <view class="task-details" wx:if="{{task.description}}">
+      <text class="detail-text">{{task.description}}</text>
+    </view>
+    <view class="task-date" wx:if="{{task.dueDate}}">
+      <text class="date-text">截止日期：{{task.dueDate}}</text>
+    </view>
   </view>
 
   <!-- 拆解按钮区域 -->
