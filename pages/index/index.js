@@ -14,9 +14,12 @@ Page({
   },
 
   onLoad() {
-    // 从全局数据中获取任务列表
+    // 从本地存储获取任务列表
+    const storedTasks = wx.getStorageSync('tasks') || [];
+    app.globalData.taskList = storedTasks;
+    
     this.setData({
-      tasks: app.globalData.taskList.map(task => {
+      tasks: storedTasks.map(task => {
         const daysLeft = task.dueDate ? this.calculateDaysLeft(task.dueDate) : undefined;
         return {
           ...task,
@@ -94,8 +97,11 @@ Page({
       daysLeft: dueDate ? this.calculateDaysLeft(dueDate) : undefined
     }
 
-    // 更新全局和页面数据
-    app.globalData.taskList.push(newTask)
+    // 更新全局数据、本地存储和页面数据
+    const updatedTasks = [...app.globalData.taskList, newTask];
+    app.globalData.taskList = updatedTasks;
+    wx.setStorageSync('tasks', updatedTasks);
+    
     this.setData({
       tasks: [...this.data.tasks, newTask],
       showCreate: false

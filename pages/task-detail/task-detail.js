@@ -72,13 +72,14 @@ Page({
     const completedCount = updatedSubtasks.filter(task => task.completed).length
     const allCompleted = completedCount === subtasks.length
 
-    // 更新全局状态
+    // 更新全局状态和本地存储
     if (allCompleted) {
-      const tasks = app.globalData.tasks || []
+      const tasks = app.globalData.taskList || [];
       const updatedTasks = tasks.map(t => 
         t.id === task.id ? { ...t, completed: true } : t
-      )
-      app.globalData.tasks = updatedTasks
+      );
+      app.globalData.taskList = updatedTasks;
+      wx.setStorageSync('tasks', updatedTasks);
     }
 
     this.setData({
