@@ -193,8 +193,17 @@
   padding: 16rpx;
   background: #f8f9fa;
   border-radius: 16rpx;
+  font-size: 32rpx;
+  color: #333;
+  margin-top: 24rpx;
+  transition: all 0.3s ease;
 }
 
+.calculate-btn.loading {
+  background: #e9ecef;
+  color: #666;
+  pointer-events: none;
+}
 .button-group {
   display: flex;
   justify-content: space-between;

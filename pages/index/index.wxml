@@ -32,10 +32,13 @@
       </picker>
     </view>
     <view class="feedback-area">
-      <view class="pressure-bar">
+      <view class="pressure-bar" wx:if="{{newTask.pressure > 0}}">
         <view class="pressure-progress" style="width: {{newTask.pressure}}%"></view>
       </view>
-      <view class="comparison-tag">压力值: {{newTask.pressure}}</view>
+      <view class="comparison-tag" wx:if="{{newTask.pressure > 0}}">压力值: {{newTask.pressure}}</view>
+      <view class="calculate-btn {{calculatingPressure ? 'loading' : ''}}" bindtap="calculatePressure" wx:if="{{showPressureButton && !newTask.pressure}}">
+        <text>{{calculatingPressure ? '正在测算压力值...' : '测算压力值'}}</text>
+      </view>
     </view>
     <view class="button-group">
       <view class="cancel-btn" bindtap="hideCreatePanel">取消</view>

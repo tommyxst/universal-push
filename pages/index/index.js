@@ -8,9 +8,11 @@ Page({
     newTask: {
       title: '',
       description: '',
-      pressure: 50,
+      pressure: 0,
       dueDate: ''
-    }
+    },
+    showPressureButton: false,
+    calculatingPressure: false
   },
 
   onLoad() {
@@ -47,7 +49,7 @@ Page({
       newTask: {
         title: '',
         description: '',
-        pressure: 50,
+        pressure: 0,
         dueDate: ''
       }
     })
@@ -57,7 +59,8 @@ Page({
   onTitleInput(e) {
     const value = e.detail.value.slice(0, 50)
     this.setData({
-      'newTask.title': value
+      'newTask.title': value,
+      showPressureButton: value.trim() !== '' || this.data.newTask.description.trim() !== ''
     })
   },
 
@@ -65,7 +68,8 @@ Page({
   onDescriptionInput(e) {
     const value = e.detail.value.slice(0, 200)
     this.setData({
-      'newTask.description': value
+      'newTask.description': value,
+      showPressureButton: value.trim() !== '' || this.data.newTask.title.trim() !== ''
     })
   },
 
@@ -74,6 +78,57 @@ Page({
     this.setData({
       'newTask.dueDate': e.detail.value
     })
+  },
+
+  // 计算压力值
+  async calculatePressure() {
+    this.setData({ calculatingPressure: true })
+    try {
+      const { title, description, dueDate } = this.data.newTask
+      const daysLeft = dueDate ? this.calculateDaysLeft(dueDate) : '未设置'
+      
+      const content = `任务主题：${title} 任务详情：${description} 任务截止日期：${daysLeft}天后`
+      
+      const response = await wx.request({
+        url: 'https://ark.cn-beijing.volces.com/api/v3/bots/chat/completions',
+        method: 'POST',
+        header: {
+          'Authorization': 'Bearer 22d71beb-dfc1-45bb-b500-9e23fe012b7f',
+          'Content-Type': 'application/json'
+        },
+        data: {
+          model: 'bot-20250226110555-5jxzx',
+          stream: false,
+          stream_options: { include_usage: true },
+          messages: [
+            {
+              role: 'user',
+              content: content
+            }
+          ]
+        },
+        success: (response) => {
+          console.log('response', response)
+          const answerContent = response.data.choices[0].message.content
+          const jsonStr = answerContent.slice(answerContent.indexOf('{'), answerContent.lastIndexOf('}')+1)
+          const result = JSON.parse(jsonStr)
+          const pressure = result.points
+    
+          this.setData({
+            'newTask.pressure': pressure,
+            calculatingPressure: false
+          })
+        }
+      })
+      
+    } catch (error) {
+      console.error('计算压力值失败：', error)
+      wx.showToast({
+        title: '压力计算失败，请重试',
+        icon: 'none'
+      })
+      this.setData({ calculatingPressure: false })
+    }
   },
 
   // 创建新任务
